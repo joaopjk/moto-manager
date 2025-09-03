@@ -68,9 +68,13 @@ O MotoManager é dividido em múltiplos projetos, cada um com uma responsabilidade
 ## Melhorias Futuras
 
 - Implementação de autenticação e autorização.
-- Melhor tratamento de erros e logs.
-- Otimização dos workers e escalabilidade dos serviços.
-- Refino dos testes automatizados e cobertura de integração.
+- Melhor tratamento de erros e logs. O Middleware de tratamento de erros pode ser aprimorado(melhoria na padronização das respostas de erro)
+- Otimização dos workers e escalabilidade dos serviços. Deve ser implementado mecanismo de circuito de falha (circuit breaker) para melhorar a resiliência dos serviços.
+- Utilizar Aggregate Roots para garantir a integridade dos dados no domínio(não foram utilizados em todos os casos)
+- Implementação de segurança robusta
+	- CORS
+	- Security Headers
+	- Fail Fast
 
 ---
 
