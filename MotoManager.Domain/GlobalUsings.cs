@@ -1,0 +1,9 @@
+﻿global using MotoManager.Domain.Entities;
+global using MotoManager.Domain.Events;
+global using System.Text.RegularExpressions;
+global using MongoDB.Bson;
+global using MongoDB.Bson.Serialization.Attributes;
+global using MongoDB.Driver;
+global using System.Diagnostics.CodeAnalysis;
+global using MotoManager.Shared.Provider;
+global using System.Security.Cryptography;

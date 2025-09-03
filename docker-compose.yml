@@ -1,0 +1,111 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: mongo_d
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: MotoManager
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:7.2
+    container_name: redis_d
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio_d
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: admin123
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq_d
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  motomanager-api:
+    build:
+      context: .
+      dockerfile: MotoManager/Dockerfile
+    container_name: motomanager-api
+    depends_on:
+      - mongo
+      - redis
+      - minio
+      - rabbitmq
+    ports:
+      - "5000:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      MONGO_DATABASE_URL: mongodb://mongo:27017
+      MONGO_DATABASE_NAME: MotoManager
+      REDIS_URL: redis:6379
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: guest
+      RABBITMQ_PASSWORD: guest
+      RABBITMQ_EXCHANGENAME: motomanager.exchange
+      RABBITMQ_ROUTINGKEY: motocycle.registered
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESSKEY: admin
+      MINIO_SECRETKEY: admin123
+      MINIO_BUCKETNAME: motomanagerbucker
+
+  motomanager-worker-motocyclecreate:
+    build:
+      context: .
+      dockerfile: MotoManager.Worker.Rental/Dockerfile
+    container_name: motomanager-worker-motocyclecreate
+    depends_on:
+      - mongo
+      - rabbitmq
+    environment:
+      DOTNET_ENVIRONMENT: Development
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: guest
+      RABBITMQ_PASSWORD: guest
+      RABBITMQ_EXCHANGENAME: motomanager.exchange
+      RABBITMQ_ROUTINGKEY: motocycle.registered
+      MONGO_DATABASE_URL: mongodb://mongo:27017
+      MONGO_DATABASE_NAME: MotoManager
+
+  motomanager-worker-showyear:
+    build:
+      context: .
+      dockerfile: MotoManager.Worker.ShowYear/Dockerfile
+    container_name: motomanager-worker-showyear
+    depends_on:
+      - rabbitmq
+    environment:
+      DOTNET_ENVIRONMENT: Development
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: guest
+      RABBITMQ_PASSWORD: guest
+      RABBITMQ_EXCHANGENAME: motomanager.exchange
+      RABBITMQ_ROUTINGKEY: motocycle.registered
+
+volumes:
+  mongo_data:
+  redis_data:
+  minio_data:

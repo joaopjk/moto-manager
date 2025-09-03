@@ -1,0 +1,15 @@
+﻿global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.OpenApi.Models;
+global using MotoManager.Api.Middlewares;
+global using MotoManager.Api.Seeds;
+global using MotoManager.Application.Dtos;
+global using MotoManager.Application.Interfaces;
+global using MotoManager.Application.Resources;
+global using MotoManager.Application.ResultBase;
+global using MotoManager.Domain.Constants;
+global using MotoManager.Domain.Entities;
+global using MotoManager.Domain.Interfaces.Repositories;
+global using MotoManager.IoC.DI;
+global using Serilog;
+global using System.Net;
+global using System.Text.Json;

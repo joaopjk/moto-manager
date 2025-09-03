@@ -1,0 +1,17 @@
+﻿global using Testcontainers.Redis;
+global using StackExchange.Redis;
+global using MotoManager.Infrastructure.Caches;
+global using Microsoft.Extensions.Caching.Memory;
+global using Testcontainers.MongoDb;
+global using MongoDB.Driver;
+global using MotoManager.Infrastructure.Context;
+global using MotoManager.Infrastructure.Events;
+global using Testcontainers.RabbitMq;
+global using MotoManager.IntegrationTests.Helpers;
+global using MotoManager.Domain.Entities;
+global using MotoManager.Infrastructure.Repositories;
+global using Minio;
+global using MotoManager.Infrastructure.Storage;
+global using System.Text;
+global using Testcontainers.Minio;
+global using Minio.DataModel.Args;

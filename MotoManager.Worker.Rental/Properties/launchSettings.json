@@ -1,0 +1,20 @@
+﻿{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "MotoManager.Worker.Rental": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development",
+        "RABBITMQ_HOST": "localhost",
+        "RABBITMQ_PORT": "5672",
+        "RABBITMQ_USER": "guest",
+        "RABBITMQ_PASSWORD": "guest",
+        "RABBITMQ_EXCHANGENAME": "motomanager.exchange",
+        "RABBITMQ_ROUTINGKEY": "motocycle.registered",
+        "MONGO_DATABASE_URL": "mongodb://localhost:27017",
+        "MONGO_DATABASE_NAME": "MotoManager"
+      }
+    }
+  }
+}

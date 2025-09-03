@@ -1,0 +1,17 @@
+﻿global using Minio;
+global using Minio.DataModel.Args;
+global using MongoDB.Driver;
+global using MotoManager.Domain.Constants;
+global using MotoManager.Domain.Entities;
+global using MotoManager.Domain.Events;
+global using MotoManager.Domain.Interfaces.Caches;
+global using MotoManager.Domain.Interfaces.Context;
+global using MotoManager.Domain.Interfaces.Events;
+global using MotoManager.Domain.Interfaces.Repositories;
+global using MotoManager.Domain.Interfaces.Storage;
+global using RabbitMQ.Client;
+global using RabbitMQ.Client.Events;
+global using StackExchange.Redis;
+global using System.Text;
+global using System.Text.Json;
+global using System.Diagnostics.CodeAnalysis;
